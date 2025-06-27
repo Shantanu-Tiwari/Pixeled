@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { useOther } from "@liveblocks/react/suspense";
-import { connectionIdToColor } from "../../utils";
+import { connectionIdToColor } from "~/utils";
 
 function Cursor({ connectionId }: { connectionId: number }) {
   const cursor = useOther(connectionId, (user) => user.presence.cursor);
