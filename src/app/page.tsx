@@ -1,4 +1,4 @@
-"use-client";
+"use client";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { Badge } from "~/components/ui/badge";
@@ -10,10 +10,16 @@ const AnimatedBackground = () => {
         <div className="absolute inset-0 overflow-hidden">
             {/* Gradient orbs */}
             <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
-            <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-cyan-400 to-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse" style={{ animationDelay: '2s' }}></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse" style={{ animationDelay: '4s' }}></div>
+            <div
+                className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-cyan-400 to-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"
+                style={{ animationDelay: '2s' }}
+            ></div>
+            <div
+                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"
+                style={{ animationDelay: '4s' }}
+            ></div>
 
-            {/* Static floating particles - no cursor tracking */}
+            {/* Static floating particles */}
             {Array.from({ length: 20 }).map((_, i) => (
                 <div
                     key={i}
@@ -29,7 +35,14 @@ const AnimatedBackground = () => {
     );
 };
 
-const FeatureCard = ({ icon: Icon, title, description, gradient }: any) => (
+interface FeatureCardProps {
+    icon: React.ComponentType<{ className?: string }>;
+    title: string;
+    description: string;
+    gradient: string;
+}
+
+const FeatureCard = ({ icon: Icon, title, description, gradient }: FeatureCardProps) => (
     <Card className="group relative overflow-hidden border-0 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 hover:scale-105">
         <CardContent className="p-6">
             <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
@@ -41,7 +54,12 @@ const FeatureCard = ({ icon: Icon, title, description, gradient }: any) => (
     </Card>
 );
 
-const TechBadge = ({ children, color }: any) => (
+interface TechBadgeProps {
+    children: React.ReactNode;
+    color: string;
+}
+
+const TechBadge = ({ children, color }: TechBadgeProps) => (
     <Badge variant="secondary" className={`${color} text-white border-0 px-4 py-2 text-sm font-medium`}>
         {children}
     </Badge>
@@ -50,6 +68,17 @@ const TechBadge = ({ children, color }: any) => (
 export default function Index() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 relative overflow-hidden">
+            <style jsx>{`
+                @keyframes float {
+                    0%, 100% { 
+                        transform: translateY(0px) rotate(0deg); 
+                    }
+                    50% { 
+                        transform: translateY(-20px) rotate(180deg); 
+                    }
+                }
+            `}</style>
+
             <AnimatedBackground />
 
             {/* Navigation */}
@@ -59,8 +88,8 @@ export default function Index() {
                         <Palette className="w-6 h-6 text-white" />
                     </div>
                     <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-            Pixelate
-          </span>
+                        Pixelate
+                    </span>
                 </div>
 
                 <div className="flex items-center space-x-4">
@@ -84,9 +113,9 @@ export default function Index() {
                 </div>
 
                 <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-          <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent">
-            Create Together,
-          </span>
+                    <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent">
+                        Create Together,
+                    </span>
                     <br />
                     <span className="text-gray-900">Design Forever</span>
                 </h1>
@@ -240,8 +269,8 @@ export default function Index() {
                                 <Palette className="w-5 h-5 text-white" />
                             </div>
                             <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                Pixelate
-              </span>
+                                Pixelate
+                            </span>
                         </div>
                         <p className="text-gray-600">
                             &copy; 2025 Pixelate. All rights reserved. Built with ❤️ by Shantanu Tiwari.
@@ -249,13 +278,6 @@ export default function Index() {
                     </div>
                 </div>
             </footer>
-
-            <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(180deg); }
-        }
-      `}</style>
         </div>
     );
 }
