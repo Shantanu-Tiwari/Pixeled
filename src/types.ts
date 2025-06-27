@@ -10,11 +10,12 @@ export type Camera = {
   zoom: number;
 };
 
+// Change to string enum for LSON compatibility
 export enum LayerType {
-  Rectangle,
-  Ellipse,
-  Path,
-  Text,
+  Rectangle = "rectangle",
+  Ellipse = "ellipse",
+  Path = "path",
+  Text = "text",
 }
 
 export type RectangleLayer = {
@@ -81,58 +82,67 @@ export type XYWH = {
   height: number;
 };
 
+// Change to string enum for LSON compatibility
 export enum Side {
-  Top = 1,
-  Bottom = 2,
-  Left = 4,
-  Right = 8,
+  Top = "top",
+  Bottom = "bottom",
+  Left = "left",
+  Right = "right",
 }
 
 export type CanvasState =
-  | {
-      mode: CanvasMode.None;
-    }
-  | {
-      mode: CanvasMode.RightClick;
-    }
-  | {
-      mode: CanvasMode.SelectionNet;
-      origin: Point;
-      current?: Point;
-    }
-  | {
-      mode: CanvasMode.Dragging;
-      origin: Point | null;
-    }
-  | {
-      mode: CanvasMode.Inserting;
-      layerType: LayerType.Rectangle | LayerType.Ellipse | LayerType.Text;
-    }
-  | {
-      mode: CanvasMode.Pencil;
-    }
-  | {
-      mode: CanvasMode.Resizing;
-      initialBounds: XYWH;
-      corner: Side;
-    }
-  | {
-      mode: CanvasMode.Translating;
-      current: Point;
-    }
-  | {
-      mode: CanvasMode.Pressing;
-      origin: Point;
-    };
-
-export enum CanvasMode {
-  None,
-  Dragging,
-  Inserting,
-  Pencil,
-  Resizing,
-  Translating,
-  SelectionNet,
-  Pressing,
-  RightClick,
+    | {
+  mode: CanvasMode.None;
 }
+    | {
+  mode: CanvasMode.RightClick;
+}
+    | {
+  mode: CanvasMode.SelectionNet;
+  origin: Point;
+  current?: Point;
+}
+    | {
+  mode: CanvasMode.Dragging;
+  origin: Point | null;
+}
+    | {
+  mode: CanvasMode.Inserting;
+  layerType: LayerType.Rectangle | LayerType.Ellipse | LayerType.Text;
+}
+    | {
+  mode: CanvasMode.Pencil;
+}
+    | {
+  mode: CanvasMode.Resizing;
+  initialBounds: XYWH;
+  corner: Side;
+}
+    | {
+  mode: CanvasMode.Translating;
+  current: Point;
+}
+    | {
+  mode: CanvasMode.Pressing;
+  origin: Point;
+};
+
+// Change to string enum for LSON compatibility
+export enum CanvasMode {
+  None = "none",
+  Dragging = "dragging",
+  Inserting = "inserting",
+  Pencil = "pencil",
+  Resizing = "resizing",
+  Translating = "translating",
+  SelectionNet = "selectionNet",
+  Pressing = "pressing",
+  RightClick = "rightClick",
+}
+
+export type Presence = {
+  cursor: Point | null;
+  selection: string[];
+  pencilDraft: number[][] | null;
+  penColor: Color | null;
+};
