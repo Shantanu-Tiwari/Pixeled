@@ -5,8 +5,16 @@ import { LayerType, Side, XYWH } from "~/types";
 
 const handleWidth = 8;
 
+// Define corner combinations as constants
+const CORNER_TOP_LEFT = "TOP_LEFT";
+const CORNER_TOP_RIGHT = "TOP_RIGHT";
+const CORNER_BOTTOM_LEFT = "BOTTOM_LEFT";
+const CORNER_BOTTOM_RIGHT = "BOTTOM_RIGHT";
+
+type Corner = typeof CORNER_TOP_LEFT | typeof CORNER_TOP_RIGHT | typeof CORNER_BOTTOM_LEFT | typeof CORNER_BOTTOM_RIGHT;
+
 interface SelectionBoxProps {
-    onResizeHandlePointerDown: (corner: Side, initialBounds: XYWH) => void;
+    onResizeHandlePointerDown: (corner: Side | Corner, initialBounds: XYWH) => void;
 }
 
 const SelectionBox: FC<SelectionBoxProps> = memo(({ onResizeHandlePointerDown }) => {
@@ -73,7 +81,7 @@ const SelectionBox: FC<SelectionBoxProps> = memo(({ onResizeHandlePointerDown })
                         className="fill-white stroke-[#0b99ff] stroke-[1px]"
                         onPointerDown={(e) => {
                             e.stopPropagation();
-                            onResizeHandlePointerDown(((Side.Top as number) | (Side.Left as number)) as Side, bounds as XYWH);
+                            onResizeHandlePointerDown(CORNER_TOP_LEFT, bounds as XYWH);
                         }}
                     />
                     {/* Top handle */}
@@ -101,7 +109,7 @@ const SelectionBox: FC<SelectionBoxProps> = memo(({ onResizeHandlePointerDown })
                         className="fill-white stroke-[#0b99ff] stroke-[1px]"
                         onPointerDown={(e) => {
                             e.stopPropagation();
-                            onResizeHandlePointerDown(((Side.Top as number) | (Side.Right as number)) as Side, bounds as XYWH);
+                            onResizeHandlePointerDown(CORNER_TOP_RIGHT, bounds as XYWH);
                         }}
                     />
                     {/* Left handle */}
@@ -143,7 +151,7 @@ const SelectionBox: FC<SelectionBoxProps> = memo(({ onResizeHandlePointerDown })
                         className="fill-white stroke-[#0b99ff] stroke-[1px]"
                         onPointerDown={(e) => {
                             e.stopPropagation();
-                            onResizeHandlePointerDown(((Side.Bottom as number) | (Side.Left as number)) as Side, bounds as XYWH);
+                            onResizeHandlePointerDown(CORNER_BOTTOM_LEFT, bounds as XYWH);
                         }}
                     />
                     {/* Bottom handle */}
@@ -171,7 +179,7 @@ const SelectionBox: FC<SelectionBoxProps> = memo(({ onResizeHandlePointerDown })
                         className="fill-white stroke-[#0b99ff] stroke-[1px]"
                         onPointerDown={(e) => {
                             e.stopPropagation();
-                            onResizeHandlePointerDown(((Side.Bottom as number) | (Side.Right as number)) as Side, bounds as XYWH);
+                            onResizeHandlePointerDown(CORNER_BOTTOM_RIGHT, bounds as XYWH);
                         }}
                     />
                 </>
