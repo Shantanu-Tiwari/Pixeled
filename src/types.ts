@@ -116,7 +116,7 @@ export type CanvasState =
     | {
   mode: CanvasMode.Resizing;
   initialBounds: XYWH;
-  corner: Side;
+  corner: Side | Corner;
 }
     | {
   mode: CanvasMode.Translating;
@@ -126,6 +126,12 @@ export type CanvasState =
   mode: CanvasMode.Pressing;
   origin: Point;
 };
+export enum Corner {
+  TopLeft = "TOP_LEFT",
+  TopRight = "TOP_RIGHT",
+  BottomLeft = "BOTTOM_LEFT",
+  BottomRight = "BOTTOM_RIGHT",
+}
 
 // Change to string enum for LSON compatibility
 export enum CanvasMode {
