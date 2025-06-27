@@ -115,8 +115,8 @@ export default function Sidebars({
             <div className="flex justify-between">
               <Link href="/dashboard">
                 <img
-                  src="/figma-logo.svg"
-                  alt="Figma logo"
+                  src="/img.png"
+                  alt="Pixelate logo"
                   className="h-[18px w-[18px]"
                 />
               </Link>
@@ -190,8 +190,8 @@ export default function Sidebars({
         <div className="fixed left-3 top-3 flex h-[48px] w-[250px] items-center justify-between rounded-xl border bg-white p-4">
           <Link href="/dashboard">
             <img
-              src="/figma-logo.svg"
-              alt="Figma logo"
+              src="/img.png"
+              alt="Pixelate logo"
               className="h-[18px w-[18px]"
             />
           </Link>

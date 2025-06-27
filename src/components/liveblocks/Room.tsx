@@ -36,8 +36,8 @@ export function Room({
           fallback={
             <div className="flex h-screen flex-col items-center justify-center gap-2">
               <img
-                src="/figma-logo.svg"
-                alt="Figma logo"
+                src="/img.png"
+                alt="Pixelate Logo"
                 className="h-[50px] w-[50px] animate-bounce"
               />
               <h1 className="text-sm font-normal">Loading</h1>
