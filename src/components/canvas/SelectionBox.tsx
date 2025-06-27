@@ -73,7 +73,7 @@ const SelectionBox: FC<SelectionBoxProps> = memo(({ onResizeHandlePointerDown })
                         className="fill-white stroke-[#0b99ff] stroke-[1px]"
                         onPointerDown={(e) => {
                             e.stopPropagation();
-                            onResizeHandlePointerDown((Side.Top as number) | (Side.Left as number), bounds as XYWH);
+                            onResizeHandlePointerDown(((Side.Top as number) | (Side.Left as number)) as Side, bounds as XYWH);
                         }}
                     />
                     {/* Top handle */}
@@ -101,7 +101,7 @@ const SelectionBox: FC<SelectionBoxProps> = memo(({ onResizeHandlePointerDown })
                         className="fill-white stroke-[#0b99ff] stroke-[1px]"
                         onPointerDown={(e) => {
                             e.stopPropagation();
-                            onResizeHandlePointerDown((Side.Top as number) | (Side.Right as number), bounds as XYWH);
+                            onResizeHandlePointerDown(((Side.Top as number) | (Side.Right as number)) as Side, bounds as XYWH);
                         }}
                     />
                     {/* Left handle */}
@@ -143,7 +143,7 @@ const SelectionBox: FC<SelectionBoxProps> = memo(({ onResizeHandlePointerDown })
                         className="fill-white stroke-[#0b99ff] stroke-[1px]"
                         onPointerDown={(e) => {
                             e.stopPropagation();
-                            onResizeHandlePointerDown((Side.Bottom as number) | (Side.Left as number), bounds as XYWH);
+                            onResizeHandlePointerDown(((Side.Bottom as number) | (Side.Left as number)) as Side, bounds as XYWH);
                         }}
                     />
                     {/* Bottom handle */}
@@ -171,7 +171,7 @@ const SelectionBox: FC<SelectionBoxProps> = memo(({ onResizeHandlePointerDown })
                         className="fill-white stroke-[#0b99ff] stroke-[1px]"
                         onPointerDown={(e) => {
                             e.stopPropagation();
-                            onResizeHandlePointerDown((Side.Bottom as number) | (Side.Right as number), bounds as XYWH);
+                            onResizeHandlePointerDown(((Side.Bottom as number) | (Side.Right as number)) as Side, bounds as XYWH);
                         }}
                     />
                 </>
