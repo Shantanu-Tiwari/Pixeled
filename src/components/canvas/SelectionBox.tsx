@@ -1,17 +1,17 @@
 import { useSelf, useStorage } from "@liveblocks/react";
 import { memo, useEffect, useRef, useState, FC } from "react";
 import useSelectionBounds from "~/hooks/useSelectionBounds";
-import { LayerType, Side, Corner, XYWH } from "~/types";
+import { LayerType, Corner, XYWH } from "~/types";
 
 const handleWidth = 8;
 
 interface SelectionBoxProps {
-    onResizeHandlePointerDown: (corner: Side | Corner, initialBounds: XYWH) => void;
+    onResizeHandlePointerDown: (corner: Corner, initialBounds: XYWH) => void;
 }
 
 const SelectionBox: FC<SelectionBoxProps> = memo(({ onResizeHandlePointerDown }) => {
     const soleLayerId = useSelf((me) =>
-        me.presence.selection.length === 1 ? me.presence.selection[0] : null,
+        me.presence.selection.length === 1 ? me.presence.selection[0] : null
     );
 
     const isShowingHandles = useStorage((root) => {
@@ -60,6 +60,7 @@ const SelectionBox: FC<SelectionBoxProps> = memo(({ onResizeHandlePointerDown })
             >
                 {Math.round(bounds.width)} x {Math.round(bounds.height)}
             </text>
+
             {isShowingHandles && (
                 <>
                     {/* Top-left handle */}
@@ -73,23 +74,10 @@ const SelectionBox: FC<SelectionBoxProps> = memo(({ onResizeHandlePointerDown })
                         className="fill-white stroke-[#0b99ff] stroke-[1px]"
                         onPointerDown={(e) => {
                             e.stopPropagation();
-                            onResizeHandlePointerDown(Corner.TopLeft, bounds as XYWH);
+                            onResizeHandlePointerDown(Corner.TopLeft, bounds);
                         }}
                     />
-                    {/* Top handle */}
-                    <rect
-                        style={{
-                            cursor: "ns-resize",
-                            width: `${handleWidth}px`,
-                            height: `${handleWidth}px`,
-                            transform: `translate(${bounds.x + bounds.width / 2 - handleWidth / 2}px, ${bounds.y - handleWidth / 2}px)`,
-                        }}
-                        className="fill-white stroke-[#0b99ff] stroke-[1px]"
-                        onPointerDown={(e) => {
-                            e.stopPropagation();
-                            onResizeHandlePointerDown(Side.Top, bounds as XYWH);
-                        }}
-                    />
+
                     {/* Top-right handle */}
                     <rect
                         style={{
@@ -101,37 +89,10 @@ const SelectionBox: FC<SelectionBoxProps> = memo(({ onResizeHandlePointerDown })
                         className="fill-white stroke-[#0b99ff] stroke-[1px]"
                         onPointerDown={(e) => {
                             e.stopPropagation();
-                            onResizeHandlePointerDown(Corner.TopRight, bounds as XYWH);
+                            onResizeHandlePointerDown(Corner.TopRight, bounds);
                         }}
                     />
-                    {/* Left handle */}
-                    <rect
-                        style={{
-                            cursor: "ew-resize",
-                            width: `${handleWidth}px`,
-                            height: `${handleWidth}px`,
-                            transform: `translate(${bounds.x - handleWidth / 2}px, ${bounds.y + bounds.height / 2 - handleWidth / 2}px)`,
-                        }}
-                        className="fill-white stroke-[#0b99ff] stroke-[1px]"
-                        onPointerDown={(e) => {
-                            e.stopPropagation();
-                            onResizeHandlePointerDown(Side.Left, bounds as XYWH);
-                        }}
-                    />
-                    {/* Right handle */}
-                    <rect
-                        style={{
-                            cursor: "ew-resize",
-                            width: `${handleWidth}px`,
-                            height: `${handleWidth}px`,
-                            transform: `translate(${bounds.x + bounds.width - handleWidth / 2}px, ${bounds.y + bounds.height / 2 - handleWidth / 2}px)`,
-                        }}
-                        className="fill-white stroke-[#0b99ff] stroke-[1px]"
-                        onPointerDown={(e) => {
-                            e.stopPropagation();
-                            onResizeHandlePointerDown(Side.Right, bounds as XYWH);
-                        }}
-                    />
+
                     {/* Bottom-left handle */}
                     <rect
                         style={{
@@ -143,23 +104,10 @@ const SelectionBox: FC<SelectionBoxProps> = memo(({ onResizeHandlePointerDown })
                         className="fill-white stroke-[#0b99ff] stroke-[1px]"
                         onPointerDown={(e) => {
                             e.stopPropagation();
-                            onResizeHandlePointerDown(Corner.BottomLeft, bounds as XYWH);
+                            onResizeHandlePointerDown(Corner.BottomLeft, bounds);
                         }}
                     />
-                    {/* Bottom handle */}
-                    <rect
-                        style={{
-                            cursor: "ns-resize",
-                            width: `${handleWidth}px`,
-                            height: `${handleWidth}px`,
-                            transform: `translate(${bounds.x + bounds.width / 2 - handleWidth / 2}px, ${bounds.y + bounds.height - handleWidth / 2}px)`,
-                        }}
-                        className="fill-white stroke-[#0b99ff] stroke-[1px]"
-                        onPointerDown={(e) => {
-                            e.stopPropagation();
-                            onResizeHandlePointerDown(Side.Bottom, bounds as XYWH);
-                        }}
-                    />
+
                     {/* Bottom-right handle */}
                     <rect
                         style={{
@@ -171,7 +119,7 @@ const SelectionBox: FC<SelectionBoxProps> = memo(({ onResizeHandlePointerDown })
                         className="fill-white stroke-[#0b99ff] stroke-[1px]"
                         onPointerDown={(e) => {
                             e.stopPropagation();
-                            onResizeHandlePointerDown(Corner.BottomRight, bounds as XYWH);
+                            onResizeHandlePointerDown(Corner.BottomRight, bounds);
                         }}
                     />
                 </>
