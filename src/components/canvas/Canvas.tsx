@@ -20,7 +20,7 @@ import LayerComponent from "./LayerComponent";
 import {
     Camera,
     CanvasMode,
-    CanvasState,
+    CanvasState, Corner,
     EllipseLayer,
     Layer,
     LayerType,
