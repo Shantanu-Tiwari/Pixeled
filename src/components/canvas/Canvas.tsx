@@ -10,18 +10,13 @@ import {
 } from "@liveblocks/react";
 import {
     colorToCss,
-    findIntersectionLayersWithRectangle,
-    penPointsToPathPayer,
     pointerEventToCanvasPoint,
-    resizeBounds,
 } from "~/utils";
 import LayerComponent from "./LayerComponent";
 import {
     Camera,
     CanvasMode,
     CanvasState,
-    Corner,
-    EllipseLayer,
     Color,
 } from "~/types";
 import { useState } from "react";
@@ -47,6 +42,7 @@ export default function Canvas({
     const roomColor = useStorage((root) => root.roomColor as Color | undefined);
     const layerIds = useStorage((root) => root.layerIds as string[] | undefined);
     const pencilDraft = useSelf((me) => me.presence.pencilDraft as number[][] | null);
+    const [myPresence, updateMyPresence] = useMyPresence();
     const [canvasState, setState] = useState<CanvasState>({ mode: CanvasMode.None });
     const [camera, setCamera] = useState<Camera>({ x: 0, y: 0, zoom: 1 });
     const history = useHistory();
@@ -60,6 +56,27 @@ export default function Canvas({
     const handleResizeHandlePointerDown = () => {
         // TODO: Implement resize handle pointer down logic
     };
+
+    function handlePointerDown(e: React.PointerEvent<SVGSVGElement>) {
+        if (canvasState.mode === CanvasMode.Pencil) {
+            const point = pointerEventToCanvasPoint(e, camera);
+            updateMyPresence({ pencilDraft: [[point.x, point.y]] });
+        }
+    }
+
+    function handlePointerMove(e: React.PointerEvent<SVGSVGElement>) {
+        if (canvasState.mode === CanvasMode.Pencil && e.buttons === 1 && pencilDraft) {
+            const point = pointerEventToCanvasPoint(e, camera);
+            updateMyPresence({ pencilDraft: [...pencilDraft, [point.x, point.y]] });
+        }
+    }
+
+    function handlePointerUp() {
+        if (canvasState.mode === CanvasMode.Pencil && pencilDraft && pencilDraft.length > 1) {
+            updateMyPresence({ pencilDraft: null });
+            // Add logic here to save the drawn path as a new layer in storage
+        }
+    }
 
     if (!layerIds || !roomColor) {
         return <div>Loading canvas...</div>;
@@ -76,6 +93,9 @@ export default function Canvas({
                     <svg
                         className="h-full w-full"
                         onContextMenu={(e) => e.preventDefault()}
+                        onPointerDown={handlePointerDown}
+                        onPointerMove={handlePointerMove}
+                        onPointerUp={handlePointerUp}
                     >
                         <g
                             style={{
