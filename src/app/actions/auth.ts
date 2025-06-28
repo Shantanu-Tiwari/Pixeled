@@ -1,6 +1,6 @@
 "use server";
 
-import { isValid, ZodError } from "zod";
+import { ZodError } from "zod";
 import { signUpSchema } from "~/schemas";
 import { db } from "~/server/db";
 import bcrypt from "bcryptjs";

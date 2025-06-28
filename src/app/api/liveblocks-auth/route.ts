@@ -5,14 +5,14 @@ import { db } from "~/server/db";
 
 const liveblocks = new Liveblocks({ secret: env.LIVEBLOCKS_SECRET_KEY });
 
-export async function POST(req: Request): Promise<Response> {
+export async function POST(_req: Request): Promise<Response> {
   try {
     console.log("[Liveblocks Auth] Starting authentication...");
 
     const userSession = await auth();
     console.log("[Liveblocks Auth] Session:", userSession);
 
-    if (!userSession || !userSession.user?.id) {
+    if (!userSession?.user?.id) {
       console.error("[Liveblocks Auth] No user session.");
       return new Response(JSON.stringify({ error: "Unauthorized" }), {
         status: 401,

@@ -4,7 +4,6 @@ import {
     useCanRedo,
     useCanUndo,
     useHistory,
-    useMutation,
     useMyPresence,
     useSelf,
     useStorage,
@@ -23,17 +22,9 @@ import {
     CanvasState,
     Corner,
     EllipseLayer,
-    Layer,
-    LayerType,
-    Point,
-    RectangleLayer,
-    TextLayer,
-    XYWH,
     Color,
 } from "~/types";
-import { nanoid } from "nanoid";
-import { LiveObject } from "@liveblocks/client";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import ToolsBar from "../toolsbar/ToolsBar";
 import Path from "./Path";
 import SelectionBox from "./SelectionBox";
@@ -41,9 +32,7 @@ import useDeleteLayers from "~/hooks/useDeleteLayers";
 import SelectionTools from "./SelectionTools";
 import Sidebars from "../sidebars/Sidebars";
 import MultiplayerGuides from "./MultiplayerGuides";
-import { User } from "@prisma/client";
-
-const MAX_LAYERS = 100;
+import type { User } from "@prisma/client";
 
 export default function Canvas({
                                    roomName,
@@ -58,12 +47,19 @@ export default function Canvas({
     const roomColor = useStorage((root) => root.roomColor as Color | undefined);
     const layerIds = useStorage((root) => root.layerIds as string[] | undefined);
     const pencilDraft = useSelf((me) => me.presence.pencilDraft as number[][] | null);
-    const deleteLayers = useDeleteLayers();
     const [canvasState, setState] = useState<CanvasState>({ mode: CanvasMode.None });
     const [camera, setCamera] = useState<Camera>({ x: 0, y: 0, zoom: 1 });
     const history = useHistory();
     const canUndo = useCanUndo();
     const canRedo = useCanRedo();
+
+    const handleLayerPointerDown = () => {
+        // TODO: Implement layer pointer down logic
+    };
+
+    const handleResizeHandlePointerDown = () => {
+        // TODO: Implement resize handle pointer down logic
+    };
 
     if (!layerIds || !roomColor) {
         return <div>Loading canvas...</div>;
@@ -87,9 +83,13 @@ export default function Canvas({
                             }}
                         >
                             {layerIds.map((id) => (
-                                <LayerComponent key={id} id={id} onLayerPointerDown={() => {}} />
+                                <LayerComponent
+                                    key={id}
+                                    id={id}
+                                    onLayerPointerDown={handleLayerPointerDown}
+                                />
                             ))}
-                            <SelectionBox onResizeHandlePointerDown={() => {}} />
+                            <SelectionBox onResizeHandlePointerDown={handleResizeHandlePointerDown} />
                             <MultiplayerGuides />
                             {pencilDraft !== null && pencilDraft.length > 0 && (
                                 <Path
