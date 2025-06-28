@@ -116,9 +116,9 @@ export default function Index() {
                 </div>
             </section>
 
-            <section className="relative z-10 max-w-7xl mx-auto px-6 py-20">
+            <section id="features" className="relative z-10 max-w-7xl mx-auto px-6 py-20">
                 <div className="text-center mb-16">
-                    <h2 id="features" className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                    <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                         Why Choose <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Pixelate?</span>
                     </h2>
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -147,13 +147,13 @@ export default function Index() {
                 </div>
             </section>
 
-            <section className="relative z-10 max-w-7xl mx-auto px-6 py-20">
+            <section id="about" className="relative z-10 max-w-7xl mx-auto px-6 py-20">
                 <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border-0 overflow-hidden">
                     <CardContent className="p-12 text-center">
                         <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-6">
                             <span className="text-2xl font-bold text-white">ST</span>
                         </div>
-                        <h2 id="about" className="text-3xl font-bold text-gray-900 mb-4">Meet the Creator</h2>
+                        <h2 className="text-3xl font-bold text-gray-900 mb-4">Meet the Creator</h2>
                         <p className="text-lg text-gray-700 max-w-2xl mx-auto mb-6 leading-relaxed">
                             Built by Shantanu Tiwari as a Figma-inspired collaborative tool. Combining real-time technology
                             with modern design systems, Pixelate is both a technical experiment and a creative workspace
