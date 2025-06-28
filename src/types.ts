@@ -84,10 +84,11 @@ export type XYWH = {
 
 // Change to string enum for LSON compatibility
 export enum Side {
-  Top = "top",
-  Bottom = "bottom",
-  Left = "left",
-  Right = "right",
+  None = 0,
+  Top = 1 << 0,      // 1
+  Bottom = 1 << 1,   // 2
+  Left = 1 << 2,     // 4
+  Right = 1 << 3,    // 8
 }
 
 export type CanvasState =

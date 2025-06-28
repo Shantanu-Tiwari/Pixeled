@@ -11,13 +11,7 @@ import {
 } from "./types";
 
 // Helper function to convert Corner to Side flags
-function cornerToSide(corner: Side | Corner): Side {
-  // If it's already a Side, return it
-  if (typeof corner === 'number' && Object.values(Side).includes(corner)) {
-    return corner;
-  }
-
-  // Convert Corner enum to Side flags
+function cornerToSide(corner: Corner): Side {
   switch (corner) {
     case Corner.TopLeft:
       return Side.Top | Side.Left;
@@ -27,12 +21,10 @@ function cornerToSide(corner: Side | Corner): Side {
       return Side.Bottom | Side.Left;
     case Corner.BottomRight:
       return Side.Bottom | Side.Right;
-    default:
-      return corner as Side; // Fallback for direct Side values
   }
 }
 
-export function resizeBounds(bounds: XYWH, corner: Side | Corner, point: Point): XYWH {
+export function resizeBounds(bounds: XYWH, corner: Corner, point: Point): XYWH {
   // Convert corner to Side flags for consistent handling
   const sideFlags = cornerToSide(corner);
 
