@@ -67,7 +67,7 @@ export default function Canvas({
     function handlePointerMove(e: React.PointerEvent<SVGSVGElement>) {
         if (canvasState.mode === CanvasMode.Pencil && e.buttons === 1 && pencilDraft) {
             const point = pointerEventToCanvasPoint(e, camera);
-            updateMyPresence({ pencilDraft: [...pencilDraft, [point.x, point.y]] });
+            updateMyPresence({ pencilDraft: [...pencilDraft, [point.x, point.y, e.pressure || 0.5]] });
         }
     }
 
