@@ -148,7 +148,7 @@ export default function Canvas({
     );
 
     const onResizeHandlePointerDown = useCallback(
-        (corner: Side, initialBounds: XYWH) => {
+        (corner: Side | Corner, initialBounds: XYWH) => {
             history.pause();
             setState({
                 mode: CanvasMode.Resizing,
