@@ -5,7 +5,7 @@ import { db } from "~/server/db";
 
 const liveblocks = new Liveblocks({ secret: env.LIVEBLOCKS_SECRET_KEY });
 
-export async function POST(req: Request) {
+export async function POST(req: Request): Promise<Response> {
   try {
     console.log("[Liveblocks Auth] Starting authentication...");
 
@@ -16,6 +16,7 @@ export async function POST(req: Request) {
       console.error("[Liveblocks Auth] No user session.");
       return new Response(JSON.stringify({ error: "Unauthorized" }), {
         status: 401,
+        headers: { "Content-Type": "application/json" },
       });
     }
 
@@ -23,9 +24,7 @@ export async function POST(req: Request) {
       where: { id: userSession.user.id },
       include: {
         ownedRooms: true,
-        roomInvites: {
-          include: { room: true },
-        },
+        roomInvites: { include: { room: true } },
       },
     });
 
@@ -37,29 +36,33 @@ export async function POST(req: Request) {
       },
     });
 
-    // Combine owned + invited rooms
     const combinedRoomIds = [
       ...user.ownedRooms.map((r) => r.id),
       ...user.roomInvites.map((inv) => inv.room.id),
     ];
 
-    // Remove duplicates, take only first 10
     const uniqueRoomIds = Array.from(new Set(combinedRoomIds)).slice(0, 10);
 
-    console.log("[Liveblocks Auth] Adding permissions for up to 10 rooms:");
-    uniqueRoomIds.forEach((roomId) => {
+    console.log("[Liveblocks Auth] Adding permissions for rooms:");
+    for (const roomId of uniqueRoomIds) {
       console.log(`  - room:${roomId}`);
       session.allow(`room:${roomId}`, session.FULL_ACCESS);
-    });
+    }
 
     const { status, body } = await session.authorize();
 
-    return new Response(body, { status });
-  } catch (err) {
+    return new Response(body, {
+      status,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (err: unknown) {
     console.error("[Liveblocks Auth] Internal Server Error:", err);
     return new Response(
         JSON.stringify({ error: "Internal Server Error" }),
-        { status: 500 }
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        }
     );
   }
 }
