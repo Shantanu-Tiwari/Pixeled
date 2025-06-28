@@ -66,6 +66,9 @@ export default function Canvas({
     const history = useHistory();
     const canUndo = useCanUndo();
     const canRedo = useCanRedo();
+    if (!layerIds || !roomColor) {
+        return <div>Loading canvas...</div>; // or a spinner
+    }
 
     const selectAllLayers = useMutation(
         ({ setMyPresence }) => {
