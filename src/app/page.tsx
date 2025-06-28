@@ -5,8 +5,9 @@ import { Card, CardContent } from "~/components/ui/card";
 import { Badge } from "~/components/ui/badge";
 import { ArrowRight, Palette, Users, Zap, Shield, Sparkles, Github, Twitter } from "lucide-react";
 import { useState, useEffect } from "react";
+import type { FC } from "react";
 
-const AnimatedBackground = () => {
+const AnimatedBackground: FC = () => {
     return (
         <div className="absolute inset-0 overflow-hidden">
             <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
@@ -27,7 +28,14 @@ const AnimatedBackground = () => {
     );
 };
 
-const FeatureCard = ({ icon: Icon, title, description, gradient }) => (
+type FeatureCardProps = {
+    icon: FC<{ className?: string }>;
+    title: string;
+    description: string;
+    gradient: string;
+};
+
+const FeatureCard: FC<FeatureCardProps> = ({ icon: Icon, title, description, gradient }) => (
     <Card className="group relative overflow-hidden border-0 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 hover:scale-105">
         <CardContent className="p-6">
             <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
@@ -39,7 +47,12 @@ const FeatureCard = ({ icon: Icon, title, description, gradient }) => (
     </Card>
 );
 
-const TechBadge = ({ children, color }) => (
+type TechBadgeProps = {
+    children: React.ReactNode;
+    color: string;
+};
+
+const TechBadge: FC<TechBadgeProps> = ({ children, color }) => (
     <Badge variant="secondary" className={`${color} text-white border-0 px-4 py-2 text-sm font-medium`}>
         {children}
     </Badge>
