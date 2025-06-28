@@ -29,6 +29,7 @@ import {
     RectangleLayer,
     TextLayer,
     XYWH,
+    Color,
 } from "~/types";
 import { nanoid } from "nanoid";
 import { LiveObject } from "@liveblocks/client";
@@ -54,7 +55,7 @@ export default function Canvas({
     othersWithAccessToRoom: User[];
 }) {
     const [leftIsMinimized, setLeftIsMinimized] = useState(false);
-    const roomColor = useStorage((root) => root.roomColor as string | undefined);
+    const roomColor = useStorage((root) => root.roomColor as Color | undefined);
     const layerIds = useStorage((root) => root.layerIds as string[] | undefined);
     const pencilDraft = useSelf((me) => me.presence.pencilDraft as number[][] | null);
     const deleteLayers = useDeleteLayers();
