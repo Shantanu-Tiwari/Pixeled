@@ -78,10 +78,10 @@ export default function Index() {
                     <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Pixelate</span>
                 </div>
                 <div className="flex items-center space-x-4">
-                    <Link href="/features">
+                    <Link href="#features">
                         <Button variant="ghost" className="text-gray-600 hover:text-gray-900">Features</Button>
                     </Link>
-                    <Link href="/about">
+                    <Link href="#about">
                         <Button variant="ghost" className="text-gray-600 hover:text-gray-900">About</Button>
                     </Link>
                     <Link href="/signin">
