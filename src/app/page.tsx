@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { Badge } from "~/components/ui/badge";
@@ -8,18 +9,9 @@ import { useState, useEffect } from "react";
 const AnimatedBackground = () => {
     return (
         <div className="absolute inset-0 overflow-hidden">
-            {/* Gradient orbs */}
             <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
-            <div
-                className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-cyan-400 to-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"
-                style={{ animationDelay: '2s' }}
-            ></div>
-            <div
-                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"
-                style={{ animationDelay: '4s' }}
-            ></div>
-
-            {/* Static floating particles */}
+            <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-cyan-400 to-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse" style={{ animationDelay: '4s' }}></div>
             {Array.from({ length: 20 }).map((_, i) => (
                 <div
                     key={i}
@@ -35,14 +27,7 @@ const AnimatedBackground = () => {
     );
 };
 
-interface FeatureCardProps {
-    icon: React.ComponentType<{ className?: string }>;
-    title: string;
-    description: string;
-    gradient: string;
-}
-
-const FeatureCard = ({ icon: Icon, title, description, gradient }: FeatureCardProps) => (
+const FeatureCard = ({ icon: Icon, title, description, gradient }) => (
     <Card className="group relative overflow-hidden border-0 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 hover:scale-105">
         <CardContent className="p-6">
             <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
@@ -54,12 +39,7 @@ const FeatureCard = ({ icon: Icon, title, description, gradient }: FeatureCardPr
     </Card>
 );
 
-interface TechBadgeProps {
-    children: React.ReactNode;
-    color: string;
-}
-
-const TechBadge = ({ children, color }: TechBadgeProps) => (
+const TechBadge = ({ children, color }) => (
     <Badge variant="secondary" className={`${color} text-white border-0 px-4 py-2 text-sm font-medium`}>
         {children}
     </Badge>
@@ -70,92 +50,59 @@ export default function Index() {
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 relative overflow-hidden">
             <style jsx>{`
                 @keyframes float {
-                    0%, 100% { 
-                        transform: translateY(0px) rotate(0deg); 
-                    }
-                    50% { 
-                        transform: translateY(-20px) rotate(180deg); 
-                    }
+                    0%, 100% { transform: translateY(0px) rotate(0deg); }
+                    50% { transform: translateY(-20px) rotate(180deg); }
                 }
             `}</style>
 
             <AnimatedBackground />
 
-            {/* Navigation */}
             <nav className="relative z-20 flex items-center justify-between p-6 max-w-7xl mx-auto">
                 <div className="flex items-center space-x-3">
                     <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
                         <Palette className="w-6 h-6 text-white" />
                     </div>
-                    <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                        Pixelate
-                    </span>
+                    <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Pixelate</span>
                 </div>
-
                 <div className="flex items-center space-x-4">
-                    <Button variant="ghost" className="text-gray-600 hover:text-gray-900">
-                        Features
-                    </Button>
-                    <Button variant="ghost" className="text-gray-600 hover:text-gray-900">
-                        About
-                    </Button>
-                    <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300">
-                        Get Started
-                    </Button>
+                    <Link href="/features">
+                        <Button variant="ghost" className="text-gray-600 hover:text-gray-900">Features</Button>
+                    </Link>
+                    <Link href="/about">
+                        <Button variant="ghost" className="text-gray-600 hover:text-gray-900">About</Button>
+                    </Link>
+                    <Link href="/signin">
+                        <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300">Get Started</Button>
+                    </Link>
                 </div>
             </nav>
 
-            {/* Hero Section */}
             <section className="relative z-10 max-w-7xl mx-auto px-6 pt-20 pb-32 text-center">
                 <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-purple-100 to-pink-100 rounded-full px-4 py-2 mb-8">
                     <Sparkles className="w-4 h-4 text-purple-600" />
                     <span className="text-sm font-medium text-purple-700">New: Real-time collaboration features</span>
                 </div>
-
                 <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-                    <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent">
-                        Create Together,
-                    </span>
+                    <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent">Create Together,</span>
                     <br />
                     <span className="text-gray-900">Design Forever</span>
                 </h1>
-
                 <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-10 leading-relaxed">
-                    A collaborative canvas tool built for creators, developers, and teams.
-                    Think Figma, but <span className="font-semibold text-purple-600">yours</span>.
+                    A collaborative canvas tool built for creators, developers, and teams. Think Figma, but <span className="font-semibold text-purple-600">yours</span>.
                 </p>
-
                 <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-                    <Button size="lg" className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 px-8 py-4 text-lg">
-                        Start Creating Free
-                        <ArrowRight className="w-5 h-5 ml-2" />
-                    </Button>
+                    <Link href="/signup">
+                        <Button size="lg" className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 px-8 py-4 text-lg">
+                            Start Creating Free
+                            <ArrowRight className="w-5 h-5 ml-2" />
+                        </Button>
+                    </Link>
                     <Button size="lg" variant="outline" className="border-2 border-gray-300 hover:border-purple-500 hover:text-purple-600 px-8 py-4 text-lg">
                         Watch Demo
                     </Button>
                 </div>
-
-                <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-2xl mx-auto">
-                    <div className="text-center">
-                        <div className="text-3xl font-bold text-purple-600">10K+</div>
-                        <div className="text-sm text-gray-600">Active Users</div>
-                    </div>
-                    <div className="text-center">
-                        <div className="text-3xl font-bold text-pink-600">50K+</div>
-                        <div className="text-sm text-gray-600">Projects Created</div>
-                    </div>
-                    <div className="text-center">
-                        <div className="text-3xl font-bold text-orange-600">99.9%</div>
-                        <div className="text-sm text-gray-600">Uptime</div>
-                    </div>
-                    <div className="text-center">
-                        <div className="text-3xl font-bold text-cyan-600">24/7</div>
-                        <div className="text-sm text-gray-600">Support</div>
-                    </div>
-                </div>
             </section>
 
-            {/* Features Section */}
             <section className="relative z-10 max-w-7xl mx-auto px-6 py-20">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
@@ -165,45 +112,18 @@ export default function Index() {
                         Powerful features designed to unleash your creativity and boost team productivity
                     </p>
                 </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <FeatureCard
-                        icon={Users}
-                        title="Real-time Collaboration"
-                        description="Work together seamlessly with live cursors, comments, and instant updates powered by Liveblocks."
-                        gradient="from-blue-500 to-cyan-500"
-                    />
-                    <FeatureCard
-                        icon={Zap}
-                        title="Lightning Fast"
-                        description="Infinite canvas with smooth drawing tools that respond instantly to your creative flow."
-                        gradient="from-yellow-500 to-orange-500"
-                    />
-                    <FeatureCard
-                        icon={Shield}
-                        title="Secure & Private"
-                        description="Advanced user permissions, secure session saving, and private multi-user rooms."
-                        gradient="from-green-500 to-emerald-500"
-                    />
-                    <FeatureCard
-                        icon={Palette}
-                        title="Creative Freedom"
-                        description="Unlimited creative possibilities with professional-grade tools and intuitive interface."
-                        gradient="from-purple-500 to-pink-500"
-                    />
+                    <FeatureCard icon={Users} title="Real-time Collaboration" description="Work together seamlessly with live cursors, comments, and instant updates powered by Liveblocks." gradient="from-blue-500 to-cyan-500" />
+                    <FeatureCard icon={Zap} title="Lightning Fast" description="Infinite canvas with smooth drawing tools that respond instantly to your creative flow." gradient="from-yellow-500 to-orange-500" />
+                    <FeatureCard icon={Shield} title="Secure & Private" description="Advanced user permissions, secure session saving, and private multi-user rooms." gradient="from-green-500 to-emerald-500" />
+                    <FeatureCard icon={Palette} title="Creative Freedom" description="Unlimited creative possibilities with professional-grade tools and intuitive interface." gradient="from-purple-500 to-pink-500" />
                 </div>
             </section>
 
-            {/* Tech Stack Section */}
             <section className="relative z-10 max-w-7xl mx-auto px-6 py-20">
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                        Built with Modern Technology
-                    </h2>
-                    <p className="text-lg text-gray-600 mb-8">
-                        Powered by the latest and greatest in web development
-                    </p>
-
+                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Built with Modern Technology</h2>
+                    <p className="text-lg text-gray-600 mb-8">Powered by the latest and greatest in web development</p>
                     <div className="flex flex-wrap justify-center gap-3">
                         <TechBadge color="bg-gradient-to-r from-blue-500 to-blue-600">Next.js</TechBadge>
                         <TechBadge color="bg-gradient-to-r from-purple-500 to-purple-600">Prisma</TechBadge>
@@ -214,7 +134,6 @@ export default function Index() {
                 </div>
             </section>
 
-            {/* About Section */}
             <section className="relative z-10 max-w-7xl mx-auto px-6 py-20">
                 <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border-0 overflow-hidden">
                     <CardContent className="p-12 text-center">
@@ -228,39 +147,42 @@ export default function Index() {
                             designed to empower teams and individuals alike.
                         </p>
                         <div className="flex justify-center space-x-4">
-                            <Button variant="outline" size="sm" className="border-purple-200 hover:border-purple-500 hover:text-purple-600">
-                                <Github className="w-4 h-4 mr-2" />
-                                GitHub
-                            </Button>
-                            <Button variant="outline" size="sm" className="border-purple-200 hover:border-purple-500 hover:text-purple-600">
-                                <Twitter className="w-4 h-4 mr-2" />
-                                Twitter
-                            </Button>
+                            <a href="https://github.com/Shantanu-Tiwari" target="_blank" rel="noopener noreferrer">
+                                <Button variant="outline" size="sm" className="border-purple-200 hover:border-purple-500 hover:text-purple-600">
+                                    <Github className="w-4 h-4 mr-2" /> GitHub
+                                </Button>
+                            </a>
+                            <a href="https://x.com/ShantanuTi43203" target="_blank" rel="noopener noreferrer">
+                                <Button variant="outline" size="sm" className="border-purple-200 hover:border-purple-500 hover:text-purple-600">
+                                    <Twitter className="w-4 h-4 mr-2" /> Twitter
+                                </Button>
+                            </a>
+                            <a href="https://www.linkedin.com/in/shantanutiwari24/" target="_blank" rel="noopener noreferrer">
+                                <Button variant="outline" size="sm" className="border-purple-200 hover:border-purple-500 hover:text-purple-600">
+                                    LinkedIn
+                                </Button>
+                            </a>
                         </div>
                     </CardContent>
                 </Card>
             </section>
 
-            {/* CTA Section */}
             <section className="relative z-10 max-w-7xl mx-auto px-6 py-20">
                 <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-12 text-center text-white overflow-hidden relative">
                     <div className="absolute inset-0 bg-black/10"></div>
                     <div className="relative z-10">
-                        <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                            Ready to Start Creating?
-                        </h2>
-                        <p className="text-xl mb-8 opacity-90">
-                            Join thousands of creators who are already building amazing things with Pixelate.
-                        </p>
-                        <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-100 shadow-xl hover:shadow-2xl transition-all duration-300 px-8 py-4 text-lg font-semibold">
-                            Get Started Today
-                            <ArrowRight className="w-5 h-5 ml-2" />
-                        </Button>
+                        <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to Start Creating?</h2>
+                        <p className="text-xl mb-8 opacity-90">Join thousands of creators who are already building amazing things with Pixelate.</p>
+                        <Link href="/signup">
+                            <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-100 shadow-xl hover:shadow-2xl transition-all duration-300 px-8 py-4 text-lg font-semibold">
+                                Get Started Today
+                                <ArrowRight className="w-5 h-5 ml-2" />
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </section>
 
-            {/* Footer */}
             <footer className="relative z-10 border-t border-gray-200 bg-white/50 backdrop-blur-sm">
                 <div className="max-w-7xl mx-auto px-6 py-12">
                     <div className="flex flex-col md:flex-row justify-between items-center">
@@ -268,13 +190,9 @@ export default function Index() {
                             <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
                                 <Palette className="w-5 h-5 text-white" />
                             </div>
-                            <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                                Pixelate
-                            </span>
+                            <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Pixelate</span>
                         </div>
-                        <p className="text-gray-600">
-                            &copy; 2025 Pixelate. All rights reserved. Built with ❤️ by Shantanu Tiwari.
-                        </p>
+                        <p className="text-gray-600">&copy; 2025 Pixelate. All rights reserved. Built with ❤️ by Shantanu Tiwari.</p>
                     </div>
                 </div>
             </footer>
